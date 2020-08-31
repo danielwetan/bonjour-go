@@ -7,3 +7,8 @@ type Register struct {
 	ProfileImg string
 	About      string
 }
+
+type Login struct {
+	Email    string
+	Password string
+}
