@@ -1,6 +1,7 @@
 package helpers
 
 var Query = map[string]string{
-	"login":    "SELECT * FROM users WHERE email = ?",
-	"register": "INSERT INTO users (name, email, password) VALUES (?, ?, ?)",
+	"login":      "SELECT * FROM users WHERE email = ?",
+	"register":   "INSERT INTO users (name, email, password) VALUES (?, ?, ?)",
+	"getContact": "SELECT id, name, email, profile_img, about FROM users WHERE NOT id=? ORDER BY name DESC LIMIT 10",
 }
