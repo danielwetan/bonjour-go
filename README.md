@@ -1,7 +1,7 @@
   Auth
   Contact
   User
-Message
+  Message
 
 - Upload file
 - JWT

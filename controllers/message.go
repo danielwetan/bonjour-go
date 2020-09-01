@@ -11,6 +11,8 @@ import (
 )
 
 func Message(w http.ResponseWriter, r *http.Request) {
+	helpers.Headers(&w)
+
 	// id, senderId, receiverId := r.URL.Query()["id", "sender_id", "receiver_id"]
 	id := r.URL.Query()["id"]
 	sender := r.URL.Query()["sender"]
@@ -51,7 +53,6 @@ func Message(w http.ResponseWriter, r *http.Request) {
 				}
 
 				res := helpers.ResponseMsg(true, result)
-				w.Header().Set("Content-Type", "application/json")
 				json.NewEncoder(w).Encode(res)
 			}
 		case sender != nil && receiver != nil:
@@ -77,14 +78,12 @@ func Message(w http.ResponseWriter, r *http.Request) {
 				}
 
 				res := helpers.ResponseMsg(true, result)
-				w.Header().Set("Content-Type", "application/json")
 				json.NewEncoder(w).Encode(res)
 			}
 		default:
 			// Error handling when query params is not exist
 			body := "Invalid URL"
 			res := helpers.ResponseMsg(false, body)
-			w.Header().Set("Content-Type", "application/json")
 			json.NewEncoder(w).Encode(res)
 		}
 
@@ -98,12 +97,10 @@ func Message(w http.ResponseWriter, r *http.Request) {
 
 		body := "Send message success"
 		res := helpers.ResponseMsg(true, body)
-		w.Header().Set("Content-Type", "application/json")
 		json.NewEncoder(w).Encode(res)
 	} else {
 		body := "Invalid HTTP method"
 		res := helpers.ResponseMsg(false, body)
-		w.Header().Set("Content-Type", "application/json")
 		json.NewEncoder(w).Encode(res)
 	}
 

@@ -10,6 +10,8 @@ import (
 )
 
 func Register(w http.ResponseWriter, r *http.Request) {
+	helpers.Headers(&w)
+
 	if r.Method == "POST" {
 		r.ParseForm()
 
@@ -30,17 +32,17 @@ func Register(w http.ResponseWriter, r *http.Request) {
 
 		body := "Register success"
 		res := helpers.ResponseMsg(true, body)
-		w.Header().Set("Content-Type", "application/json")
 		json.NewEncoder(w).Encode(res)
 	} else {
 		body := "Invalid HTTP method"
 		res := helpers.ResponseMsg(false, body)
-		w.Header().Set("Content-Type", "application/json")
 		json.NewEncoder(w).Encode(res)
 	}
 }
 
 func Login(w http.ResponseWriter, r *http.Request) {
+	helpers.Headers(&w)
+
 	if r.Method == "POST" {
 		r.ParseForm()
 
@@ -64,18 +66,15 @@ func Login(w http.ResponseWriter, r *http.Request) {
 		match := helpers.CheckPasswordHash(password, result.Password)
 		if match {
 			res := helpers.ResponseMsg(true, result)
-			w.Header().Set("Content-Type", "application/json")
 			json.NewEncoder(w).Encode(res)
 		} else {
 			body := "Username or password is wrong"
 			res := helpers.ResponseMsg(false, body)
-			w.Header().Set("Content-Type", "application/json")
 			json.NewEncoder(w).Encode(res)
 		}
 	} else {
 		body := "Invalid HTTP method"
 		res := helpers.ResponseMsg(false, body)
-		w.Header().Set("Content-Type", "application/json")
 		json.NewEncoder(w).Encode(res)
 	}
 }

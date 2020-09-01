@@ -11,6 +11,8 @@ import (
 )
 
 func Contact(w http.ResponseWriter, r *http.Request) {
+	helpers.Headers(&w)
+
 	if r.Method == "GET" {
 		id, _ := r.URL.Query()["id"]
 
@@ -41,12 +43,10 @@ func Contact(w http.ResponseWriter, r *http.Request) {
 		}
 
 		res := helpers.ResponseMsg(true, result)
-		w.Header().Set("Content-Type", "application/json")
 		json.NewEncoder(w).Encode(res)
 	} else {
 		body := "Invalid HTTP method"
 		res := helpers.ResponseMsg(false, body)
-		w.Header().Set("Content-Type", "application/json")
 		json.NewEncoder(w).Encode(res)
 	}
 }
