@@ -30,6 +30,7 @@ func Message(w http.ResponseWriter, r *http.Request) {
 		switch {
 		case id != nil:
 			{
+				// Latest Messages
 				rows, err := db.Query(helpers.Query["latestMessages"], id[0])
 				if err != nil {
 					panic(err)
@@ -80,6 +81,7 @@ func Message(w http.ResponseWriter, r *http.Request) {
 				json.NewEncoder(w).Encode(res)
 			}
 		default:
+			// Error handling when query params is not exist
 			body := "Invalid URL"
 			res := helpers.ResponseMsg(false, body)
 			w.Header().Set("Content-Type", "application/json")
@@ -87,7 +89,17 @@ func Message(w http.ResponseWriter, r *http.Request) {
 		}
 
 	} else if r.Method == "POST" {
+		senderID, receiverID, message := r.FormValue("sender_id"), r.FormValue("receiver_id"), r.FormValue("message")
+		_, err = db.Exec(helpers.Query["postMessage"], senderID, receiverID, message)
+		if err != nil {
+			fmt.Println(err.Error())
+			return
+		}
 
+		body := "Send message success"
+		res := helpers.ResponseMsg(true, body)
+		w.Header().Set("Content-Type", "application/json")
+		json.NewEncoder(w).Encode(res)
 	} else {
 		body := "Invalid HTTP method"
 		res := helpers.ResponseMsg(false, body)
