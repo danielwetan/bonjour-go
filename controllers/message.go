@@ -52,6 +52,33 @@ func Message(w http.ResponseWriter, r *http.Request) {
 			json.NewEncoder(w).Encode(res)
 		}
 
+		// Conversation
+		if sender != nil && receiver != nil {
+			fmt.Println("ACTIVE")
+			rows, err := db.Query(helpers.Query["conversation"], sender[0], receiver[0], sender[0], receiver[0])
+			if err != nil {
+				panic(err)
+			}
+			var result []interface{}
+			defer rows.Close()
+			for rows.Next() {
+				data := models.Conversation{}
+				err = rows.Scan(&data.ID, &data.SenderID, &data.ReceiverID, &data.Message, &data.CreatedAt)
+				result = append(result, data)
+				if err != nil {
+					panic(err)
+				}
+			}
+			err = rows.Err()
+			if err != nil {
+				panic(err)
+			}
+
+			res := helpers.ResponseMsg(true, result)
+			w.Header().Set("Content-Type", "application/json")
+			json.NewEncoder(w).Encode(res)
+		}
+
 	} else if r.Method == "POST" {
 
 	} else {
