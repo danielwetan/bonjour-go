@@ -1,8 +1,10 @@
-  Auth
-  Contact
-  User
-  Message
+[x] Auth
+[x] Contact
+[x] User
+[x] Message
 
-- Upload file
-- JWT
-- Socket.io
+[ ] Socket.io
+[x] Bcrypt
+[ ] Redis
+[ ] JWT
+[ ] Upload file
