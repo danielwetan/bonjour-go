@@ -12,6 +12,7 @@ func main() {
 	routes.Auth()
 	routes.Contact()
 	routes.User()
+	routes.Message()
 
 	PORT := ":3000"
 	fmt.Println("App running on PORT", PORT)

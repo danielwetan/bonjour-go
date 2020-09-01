@@ -1,7 +1,8 @@
   Auth
   Contact
-Message
   User
+Message
 
 - Upload file
 - JWT
+- Socket.io

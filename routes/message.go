@@ -6,6 +6,6 @@ import (
 	"github.com/danielwetan/bonjour-go/controllers"
 )
 
-func User() {
-	http.HandleFunc("/u", controllers.User)
+func Message() {
+	http.HandleFunc("/msg", controllers.Message)
 }

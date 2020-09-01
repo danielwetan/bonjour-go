@@ -11,7 +11,7 @@ import (
 )
 
 func User(w http.ResponseWriter, r *http.Request) {
-	id, _ := r.URL.Query()["id"]
+	id := r.URL.Query()["id"]
 
 	db, err := helpers.Connect()
 	if err != nil {
